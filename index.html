@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body {
+      background: #f5f6fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+    }
+    .login-container {
+      background: #fff;
+      padding: 2em 2.5em;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(34, 34, 80, 0.08);
+      min-width: 320px;
+    }
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 1.5em;
+      color: #222250;
+      letter-spacing: 1px;
+    }
+    .form-group {
+      margin-bottom: 1.2em;
+      position: relative;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+      color: #444;
+      font-size: 1em;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.7em 2.5em 0.7em 1em;
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+      font-size: 1em;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #5b8df6;
+      outline: none;
+    }
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 1em;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+      color: #888;
+    }
+    .error-message {
+      color: #e74c3c;
+      font-size: 0.95em;
+      margin-bottom: 1em;
+      display: none;
+      text-align: center;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 0.8em;
+      background: #5b8df6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-btn:active {
+      background: #4169e1;
+    }
+    .success-message {
+      color: #27ae60;
+      font-size: 1em;
+      margin-top: 1em;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <div class="error-message" id="error-msg"></div>
+    <form id="login-form" autocomplete="off">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" required autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" required autocomplete="current-password" />
+        <button class="toggle-password" id="togglePassword" type="button" tabindex="-1">&#128065;</button>
+      </div>
+      <button class="login-btn" type="submit">Log In</button>
+    </form>
+    <div class="success-message" id="success-msg">Login successful!</div>
+  </div>
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const errorMsg = document.getElementById('error-msg');
+    const successMsg = document.getElementById('success-msg');
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+
+    togglePassword.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePassword.innerHTML = '🙈';
+      } else {
+        passwordInput.type = 'password';
+        togglePassword.innerHTML = '👁️';
+      }
+    });
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+
+      const username = loginForm.username.value.trim();
+      const password = loginForm.password.value;
+
+      if (!username || !password) {
+        errorMsg.textContent = "Both fields are required.";
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      // Simulated login (no backend)
+      // Replace this with actual authentication logic as needed
+      if (username === "user" && password === "password") {
+        successMsg.style.display = 'block';
+        loginForm.reset();
+      } else {
+        errorMsg.textContent = "Invalid credentials. Try 'user' / 'password'.";
+        errorMsg.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
